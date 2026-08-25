@@ -37,3 +37,9 @@ jobs:
         run: |
           sleep 3
           curl --fail http://127.0.0.1:3000
+
+                - name: Clean old Docker data
+        if: success()
+        run: |
+          docker image prune -af --filter "until=24h"
+          docker builder prune -af --filter "until=24h"
