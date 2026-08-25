@@ -1,0 +1,39 @@
+name: Deploy Web Sekolah
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+jobs:
+  deploy:
+    runs-on: [self-hosted, linux, x64]
+
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Build Docker image
+        run: docker build -t web-sekolah:${{ github.sha }} .
+
+      - name: Remove old container
+        run: docker rm -f web-sekolah || true
+
+      - name: Start new container
+        run: |
+          docker run -d \
+            --name web-sekolah \
+            --restart unless-stopped \
+            -p 127.0.0.1:3000:3000 \
+            web-sekolah:${{ github.sha }}
+
+      - name: Verify container
+        run: docker ps --filter "name=web-sekolah"
+
+      - name: Test website internally
+        run: |
+          sleep 3
+          curl --fail http://127.0.0.1:3000
