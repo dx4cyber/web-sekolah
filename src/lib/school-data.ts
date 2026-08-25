@@ -1,6 +1,6 @@
 export const SCHOOL = {
   name: "SMK Telkom Sidoarjo",
-  tagline: "Center of Excellence & Digital Telecommunication School",
+  tagline: "Center of Excellence & Digital Telecommunication School TEST",
   address: "Jl. Pecantingan No.35, Sekardangan, Kec. Sidoarjo, Kabupaten Sidoarjo, Jawa Timur 61215",
   phone: "(031) 8961141",
   whatsapp: "+62 812-3456-7890",
