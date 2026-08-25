@@ -18,6 +18,9 @@ WORKDIR /app
 ENV NODE_ENV=production
 ENV PORT=3000
 
+COPY package.json package-lock.json ./
+
+RUN npm ci --omit=dev --legacy-peer-deps
 RUN npm install -g srvx@0.12.6
 
 COPY --from=builder /app/dist ./dist
