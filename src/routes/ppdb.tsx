@@ -121,21 +121,46 @@ function Ppdb() {
           />
           <form
             className="card-elevated mt-10 grid gap-5 p-7 sm:grid-cols-2"
-            onSubmit={(e) => {
-              e.preventDefault();
-              const data = new FormData(e.currentTarget);
-              const name = String(data.get("name") ?? "").trim();
-              if (!name || !major) {
-                toast.error("Lengkapi nama lengkap dan pilihan jurusan.");
-                return;
-              }
-              toast.success(
-                `Terima kasih, ${name}! Pendaftaran Anda terkirim. Tim PPDB akan menghubungi Anda dalam 1×24 jam.`,
-              );
-              e.currentTarget.reset();
-              setMajor("");
-              setFileName("");
-            }}
+            onSubmit={async (e) => {
+  e.preventDefault();
+
+  const form = e.currentTarget;
+  const data = new FormData(form);
+
+  const name = String(data.get("name") ?? "").trim();
+
+  if (!name || !major) {
+    toast.error("Lengkapi nama lengkap dan pilihan jurusan.");
+    return;
+  }
+
+  data.set("major", major);
+
+  try {
+    const response = await fetch("/api/ppdb", {
+      method: "POST",
+      body: data,
+    });
+
+    const result = await response.json();
+
+    if (!response.ok) {
+      toast.error(result.message ?? "Pendaftaran gagal.");
+      return;
+    }
+
+    toast.success(
+      `Terima kasih, ${name}! Data berhasil disimpan. ID pendaftaran: ${result.id}`
+    );
+
+    form.reset();
+    setMajor("");
+    setFileName("");
+  } catch (error) {
+    console.error(error);
+    toast.error("Server tidak dapat dihubungi.");
+  }
+}}
           >
             <Field label="Nama Lengkap" name="name" placeholder="Nama sesuai akta" required />
             <Field label="NISN" name="nisn" placeholder="10 digit NISN" maxLength={10} required />
@@ -161,7 +186,7 @@ function Ppdb() {
                 </SelectContent>
               </Select>
             </div>
-            <Field label="No. WhatsApp" name="wa" placeholder="08xxxxxxxxxx" required />
+            <Field label="No. WhatsApp" name="whatsapp" placeholder="08xxxxxxxxxx" required />
             <Field
               label="Email"
               name="email"

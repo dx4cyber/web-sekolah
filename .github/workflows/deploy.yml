@@ -24,12 +24,17 @@ jobs:
 
       - name: Start new container
         run: |
+          docker network inspect web-sekolah-net >/dev/null 2>&1 || docker network create web-sekolah-net
+
           docker run -d \
             --name web-sekolah \
             --restart unless-stopped \
+            --network web-sekolah-net \
+            --env-file /home/andika/secrets/web-sekolah.env \
+            -v ppdb_uploads:/app/uploads \
             -p 127.0.0.1:3000:3000 \
             web-sekolah:${{ github.sha }}
-
+            
       - name: Verify container
         run: docker ps --filter "name=web-sekolah"
 
