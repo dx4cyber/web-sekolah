@@ -258,10 +258,11 @@ function Bkk() {
           <div className="grid gap-2 sm:col-span-2">
             <Label htmlFor="need">Kebutuhan Kerja Sama</Label>
             <Textarea
-              id="need"
-              name="need"
-              rows={4}
-              placeholder="Contoh: menerima 10 siswa PKL jurusan SIJA, atau rekrutmen 3 Network Engineer."
+  id="needs"
+  name="needs"
+  rows={4}
+  placeholder="Contoh: menerima 10 siswa PKL jurusan SIJA, atau rekrutmen 3 Network Engineer"
+  required
             />
           </div>
           <Button type="submit" size="lg" className="sm:col-span-2">
