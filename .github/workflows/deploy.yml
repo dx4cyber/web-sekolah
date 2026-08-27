@@ -17,7 +17,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Build Docker image
-        run: docker build -t web-sekolah:${{ github.sha }} .
+        run: docker build --network=host -t web-sekolah:${{ github.sha }} .
 
       - name: Remove old container
         run: docker rm -f web-sekolah || true

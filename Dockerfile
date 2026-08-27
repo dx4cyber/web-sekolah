@@ -6,13 +6,18 @@ ENV NODE_OPTIONS=--dns-result-order=ipv4first
 
 COPY package.json package-lock.json ./
 
+RUN npm config set fetch-retries 5 \
+    && npm config set fetch-retry-mintimeout 20000 \
+    && npm config set fetch-retry-maxtimeout 120000 \
+    && npm config set fetch-timeout 300000
+
+
 RUN npm ci --legacy-peer-deps
 
 COPY . .
 
 RUN npm run build
 
-# Sisakan hanya dependency production setelah build selesai
 RUN npm prune --omit=dev --legacy-peer-deps
 
 
