@@ -69,6 +69,7 @@ const SCHOLARSHIPS = [
 function Ppdb() {
   const [major, setMajor] = useState("");
   const [fileName, setFileName] = useState("");
+  const [reportFile, setReportFile] = useState<File | null>(null);
 
   return (
     <div>
@@ -133,6 +134,13 @@ function Ppdb() {
     toast.error("Lengkapi nama lengkap dan pilihan jurusan.");
     return;
   }
+
+  if (!reportFile) {
+  toast.error("Berkas rapor wajib diunggah.");
+  return;
+}
+
+data.set("report", reportFile, reportFile.name);
 
   data.set("major", major);
 
@@ -210,7 +218,12 @@ function Ppdb() {
                 type="file"
                 accept=".pdf,.jpg,.jpeg,.png"
                 className="hidden"
-                onChange={(e) => setFileName(e.target.files?.[0]?.name ?? "")}
+                onChange={(e) => {
+                const file = e.target.files?.[0] ?? null;
+
+                setReportFile(file);
+                setFileName(file?.name ?? "");
+                }}
               />
             </div>
             <Button type="submit" size="lg" className="sm:col-span-2">
