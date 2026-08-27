@@ -14,6 +14,7 @@ import { Route as BkkRouteImport } from './routes/bkk'
 import { Route as BludRouteImport } from './routes/blud'
 import { Route as ChatAiRouteImport } from './routes/chat-ai'
 import { Route as PpdbRouteImport } from './routes/ppdb'
+import { Route as ApiPartnershipRouteImport } from './routes/api/partnership'
 import { Route as ApiPpdbRouteImport } from './routes/api/ppdb'
 
 const IndexRoute = IndexRouteImport.update({
@@ -41,6 +42,11 @@ const PpdbRoute = PpdbRouteImport.update({
   path: '/ppdb',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiPartnershipRoute = ApiPartnershipRouteImport.update({
+  id: '/api/partnership',
+  path: '/api/partnership',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ApiPpdbRoute = ApiPpdbRouteImport.update({
   id: '/api/ppdb',
   path: '/api/ppdb',
@@ -53,6 +59,7 @@ export interface FileRoutesByFullPath {
   '/blud': typeof BludRoute
   '/chat-ai': typeof ChatAiRoute
   '/ppdb': typeof PpdbRoute
+  '/api/partnership': typeof ApiPartnershipRoute
   '/api/ppdb': typeof ApiPpdbRoute
 }
 export interface FileRoutesByTo {
@@ -61,6 +68,7 @@ export interface FileRoutesByTo {
   '/blud': typeof BludRoute
   '/chat-ai': typeof ChatAiRoute
   '/ppdb': typeof PpdbRoute
+  '/api/partnership': typeof ApiPartnershipRoute
   '/api/ppdb': typeof ApiPpdbRoute
 }
 export interface FileRoutesById {
@@ -70,14 +78,37 @@ export interface FileRoutesById {
   '/blud': typeof BludRoute
   '/chat-ai': typeof ChatAiRoute
   '/ppdb': typeof PpdbRoute
+  '/api/partnership': typeof ApiPartnershipRoute
   '/api/ppdb': typeof ApiPpdbRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/bkk' | '/blud' | '/chat-ai' | '/ppdb' | '/api/ppdb'
+  fullPaths:
+    | '/'
+    | '/bkk'
+    | '/blud'
+    | '/chat-ai'
+    | '/ppdb'
+    | '/api/partnership'
+    | '/api/ppdb'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/bkk' | '/blud' | '/chat-ai' | '/ppdb' | '/api/ppdb'
-  id: '__root__' | '/' | '/bkk' | '/blud' | '/chat-ai' | '/ppdb' | '/api/ppdb'
+  to:
+    | '/'
+    | '/bkk'
+    | '/blud'
+    | '/chat-ai'
+    | '/ppdb'
+    | '/api/partnership'
+    | '/api/ppdb'
+  id:
+    | '__root__'
+    | '/'
+    | '/bkk'
+    | '/blud'
+    | '/chat-ai'
+    | '/ppdb'
+    | '/api/partnership'
+    | '/api/ppdb'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -86,6 +117,7 @@ export interface RootRouteChildren {
   BludRoute: typeof BludRoute
   ChatAiRoute: typeof ChatAiRoute
   PpdbRoute: typeof PpdbRoute
+  ApiPartnershipRoute: typeof ApiPartnershipRoute
   ApiPpdbRoute: typeof ApiPpdbRoute
 }
 
@@ -126,6 +158,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PpdbRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/partnership': {
+      id: '/api/partnership'
+      path: '/api/partnership'
+      fullPath: '/api/partnership'
+      preLoaderRoute: typeof ApiPartnershipRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/ppdb': {
       id: '/api/ppdb'
       path: '/api/ppdb'
@@ -142,6 +181,7 @@ const rootRouteChildren: RootRouteChildren = {
   BludRoute: BludRoute,
   ChatAiRoute: ChatAiRoute,
   PpdbRoute: PpdbRoute,
+  ApiPartnershipRoute: ApiPartnershipRoute,
   ApiPpdbRoute: ApiPpdbRoute,
 }
 export const routeTree = rootRouteImport

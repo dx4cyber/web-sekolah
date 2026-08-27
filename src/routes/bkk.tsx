@@ -202,17 +202,42 @@ function Bkk() {
         />
         <form
           className="card-elevated mt-10 grid gap-5 p-7 sm:grid-cols-2"
-          onSubmit={(e) => {
-            e.preventDefault();
-            const data = new FormData(e.currentTarget);
-            const company = String(data.get("company") ?? "").trim();
-            if (!company) {
-              toast.error("Nama perusahaan wajib diisi.");
-              return;
-            }
-            toast.success(`Terima kasih! Pengajuan kemitraan dari ${company} telah kami terima.`);
-            e.currentTarget.reset();
-          }}
+          onSubmit={async (e) => {
+  e.preventDefault();
+
+  const form = e.currentTarget;
+  const data = new FormData(form);
+
+  const company = String(data.get("company") ?? "").trim();
+
+  if (!company) {
+    toast.error("Nama perusahaan wajib diisi.");
+    return;
+  }
+
+  try {
+    const response = await fetch("/api/partnership", {
+      method: "POST",
+      body: data,
+    });
+
+    const result = await response.json();
+
+    if (!response.ok) {
+      toast.error(result.message ?? "Pengajuan gagal.");
+      return;
+    }
+
+    toast.success(
+      `Terima kasih! Pengajuan kemitraan dari ${company} berhasil disimpan. ID: ${result.id}`
+    );
+
+    form.reset();
+  } catch (error) {
+    console.error(error);
+    toast.error("Server tidak dapat dihubungi.");
+  }
+}}
         >
           <div className="grid gap-2">
             <Label htmlFor="company">Nama Perusahaan</Label>
