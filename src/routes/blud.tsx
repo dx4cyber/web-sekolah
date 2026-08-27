@@ -28,14 +28,14 @@ const SERVICES = [
   {
     icon: Cable,
     tag: "Jaringan",
-    title: "Jasa Jaringan & Fiber Optic",
+    title: "Jaringan & Fiber Optic",
     desc: "Pengadaan, instalasi, dan konfigurasi jaringan LAN/Wi-Fi untuk kantor, sekolah, dan UMKM, termasuk terminasi fiber optic.",
     items: ["Survey & desain topologi", "Instalasi kabel & perangkat", "Konfigurasi router/switch", "Garansi maintenance 3 bulan"],
   },
   {
     icon: Code2,
     tag: "Software",
-    title: "Jasa Software & Website",
+    title: "Software & Website",
     desc: "Pembuatan landing page, sistem informasi sekolah/UMKM, hingga aplikasi mobile dengan pendampingan guru produktif.",
    
     items: ["Landing page company profile", "Sistem informasi & dashboard", "Aplikasi mobile Android", "Hosting & domain setup"],
@@ -43,7 +43,7 @@ const SERVICES = [
   {
     icon: Palette,
     tag: "Kreatif",
-    title: "Jasa Desain & Digital Marketing",
+    title: "Desain & Digital Marketing",
     desc: "Desain logo, konten feeds Instagram, hingga video promosi produk dengan gaya visual modern.",
     
     items: ["Desain logo & brand kit", "Paket 12 feeds Instagram", "Video promosi 30–60 detik", "Copywriting konten"],
@@ -87,8 +87,8 @@ function Blud() {
       <section className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
         <SectionHead
           eyebrow="Katalog"
-          title="Produk &amp; Jasa Karya Siswa"
-          desc="Empat lini layanan unggulan yang dikelola unit BLUD sekolah."
+          title="Layanan &amp; Karya Siswa"
+          desc="Solusi digital dan teknologi yang dikembangkan oleh siswa melalui pembelajaran berbasis proyek"
         />
         <div className="mt-12 grid gap-6 lg:grid-cols-2">
           {SERVICES.map((s) => (
@@ -112,10 +112,10 @@ function Blud() {
                 </ul>
                 <p className="mt-5 font-display text-lg font-bold text-primary">{s.price}</p>
                 <Button 
-                 onClick={() => window.open('https://wa.me/6282132793985?text=Halo%20Tim%20BLUD,%20saya%20ingin%20melihat%20portofolio%20project%20siswa', '_blank')}
+                 onClick={() => window.open('https://wa.me/6282132793985?text=Halo%20Tim%20BLUD%20SMK%20Telkom%20Sidoarjo,%20saya%20tertarik%20dengan%20layanan%20yang%20tersedia.%20Saya%20ingin%20berkonsultasi%20dan%20mendapatkan%20informasi%20lebih%20lanjut.%20Terima%20kasih.','_blank')}
                  className="w-full bg-red-700 hover:bg-red-700 text-white"
                 >
-                  Lihat Portofolio Project
+                  Konsultasi via WhatsApp
                 </Button>
               </div>
             </article>
